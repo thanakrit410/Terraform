@@ -4,8 +4,9 @@ provider "aws" {
   secret_key = "Bxxxxxxxxxxxxxxx"
 }
 
+
 resource "aws_cloudwatch_metric_alarm" "cpu_warning" {
-  alarm_name          = "PRD_LSRETAIL_STAGING_ACTVDB_EC2_CPU_UTILIZATION_WARNING"
+  alarm_name          = "PRD_LSRETAIL_REPORTING_DB_EC2_CPU_UTILIZATION_WARNING"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 5
   datapoints_to_alarm = 3
@@ -18,7 +19,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_warning" {
   alarm_description   = "EC2 CPU Utilization >= 75% for 3/5 datapoints."
 
   dimensions = {
-    InstanceId = "i-0a8c253494cccb050"
+    InstanceId = "i-01b4312ea55113707"
   }
 
   alarm_actions = [
@@ -39,7 +40,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_warning" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "cpu_critical" {
-  alarm_name          = "PRD_LSRETAIL_STAGING_ACTVDB_EC2_CPU_UTILIZATION_CRITICAL"
+  alarm_name          = "PRD_LSRETAIL_REPORTING_DB_EC2_CPU_UTILIZATION_CRITICAL"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 3
   datapoints_to_alarm = 2
@@ -52,7 +53,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_critical" {
   alarm_description   = "EC2 CPU Utilization >= 90% for 2/3 datapoints."
 
   dimensions = {
-    InstanceId = "i-0a8c253494cccb050"
+    InstanceId = "i-01b4312ea55113707"
   }
 
   alarm_actions = [
@@ -69,15 +70,30 @@ resource "aws_cloudwatch_metric_alarm" "cpu_critical" {
 }
 
 resource "aws_sns_topic" "my_sns_topic_1" {
-  name = "PRD_LSRETAIL_STAGING_ACTVDB_EC2_CPU_UTILIZATION_WARNING"
+  name = "PRD_LSRETAIL_REPORTING_DB_EC2_CPU_UTILIZATION_WARNING"
+  tags = {
+    Environment  = "PRD"
+    Project      = "LS-Retail"
+    map-migrated = "migODJ2EO9APK"
+  }
 }
 
 resource "aws_sns_topic" "my_sns_topic_2" {
-  name = "PRD_LSRETAIL_STAGING_ACTVDB_EC2_CPU_UTILIZATION_NORMAL"
+  name = "PRD_LSRETAIL_REPORTING_DB_EC2_CPU_UTILIZATION_NORMAL"
+  tags = {
+    Environment  = "PRD"
+    Project      = "LS-Retail"
+    map-migrated = "migODJ2EO9APK"
+  }
 }
 
 resource "aws_sns_topic" "my_sns_topic_3" {
-  name = "PRD_LSRETAIL_STAGING_ACTVDB_EC2_CPU_UTILIZATION_CRITICAL"
+  name = "PRD_LSRETAIL_REPORTING_DB_EC2_CPU_UTILIZATION_CRITICAL"
+  tags = {
+    Environment  = "PRD"
+    Project      = "LS-Retail"
+    map-migrated = "migODJ2EO9APK"
+  }
 }
 
 
