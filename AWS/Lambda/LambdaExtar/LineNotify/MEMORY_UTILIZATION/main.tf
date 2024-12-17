@@ -1,5 +1,7 @@
 provider "aws" {
-  region = "ap-southeast-1"
+  region     = "ap-southeast-1"
+  access_key = "Axxxxxxxxxxxxxxx"
+  secret_key = "Bxxxxxxxxxxxxxxx"
 }
 
 resource "aws_lambda_function" "my_lambda" {
@@ -20,7 +22,7 @@ resource "aws_lambda_function" "my_lambda" {
   environment {
     variables = {
       LINE_NOTIFY_API_URL = "https://notify-api.line.me/api/notify"
-      LINE_NOTIFY_TOKEN   = "fFhY3KtnBRzPE73qrsFAKbNWSVv6gFYBdcFpRgGoTtA"
+      LINE_NOTIFY_TOKEN   = "wLZa0c8JlkfByNNU3DtErMmB6awX2hpH2UE3516UkME"
     }
   }
 

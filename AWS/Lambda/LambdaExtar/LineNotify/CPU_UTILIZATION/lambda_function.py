@@ -39,6 +39,15 @@ def format_message(sns_message_data, sns_topic_arn):
     # namespace = sns_message_data.get('Trigger', {}).get('Namespace', '')
 
     # Customize the message based on different types of alarms
+    
+    # threshold_match = re.search(r'threshold \((\d+(\.\d+)?)\)', reason)
+    # if threshold_match:
+    #     threshold_value = threshold_match.group(1)
+    #     if new_state == "OK":
+    #         reason = f"CPU Utilization < {threshold_value}%"  
+    #     else:
+    #         reason = f"CPU Utilization >= {threshold_value}%"
+
     if new_state == "OK":
         message = (
             f"✅ Alarm Resolved \nApp Name: {app_name} ✅\nAlarm: {alarm_name}\nState: {new_state}\nReason: {reason}\n"
