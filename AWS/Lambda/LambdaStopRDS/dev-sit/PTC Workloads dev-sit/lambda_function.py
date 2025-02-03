@@ -27,11 +27,11 @@ def lambda_handler(event, context):
                 print(f"Tags: {tags}")
 
                 if tags.get("Schedule") == "stopped" and status == "available":
-                    print(f"กำลังหยุด RDS Instance: {db_instance_id}")
+                    print(f"Stopping RDS Instance: {db_instance_id}")
                     rds_client.stop_db_instance(DBInstanceIdentifier=db_instance_id)
 
         return {"status": "completed"}
 
     except Exception as e:
-        logger.error(f"เกิดข้อผิดพลาด: {str(e)}")
+        logger.error(f"error: {str(e)}")
         return {"status": "failed", "error": str(e)}

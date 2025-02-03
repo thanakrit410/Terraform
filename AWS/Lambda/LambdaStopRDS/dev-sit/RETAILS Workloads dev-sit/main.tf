@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_iam_role" "lambda_rds_role" {
-  name = "lambda-rds-role"
+  name = "LambdaStopRDSExecutionRole"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -19,7 +19,7 @@ resource "aws_iam_role" "lambda_rds_role" {
   })
 
   inline_policy {
-    name = "LambdaRDSInlinePolicy"
+    name = "LambdaStopRDSInlinePolicy"
     policy = jsonencode({
       Version = "2012-10-17"
       Statement = [
@@ -54,7 +54,7 @@ resource "aws_iam_role" "lambda_rds_role" {
 }
 
 resource "aws_lambda_function" "rds_lambda" {
-  function_name = "dev-rds-stop-function"
+  function_name = "Stop_rds_from_tag"
   runtime       = "python3.9"
   role          = aws_iam_role.lambda_rds_role.arn
   handler       = "lambda_function.lambda_handler"
@@ -75,7 +75,7 @@ output "lambda_function_arn" {
 }
 
 resource "aws_cloudwatch_event_rule" "lambda_schedule" {
-  name                = "lambda-schedule-every-5-mins"
+  name                = "Stop_rds_from_tag"
   description         = "Trigger Lambda every 5 minutes"
   schedule_expression = "rate(5 minutes)"
 }
