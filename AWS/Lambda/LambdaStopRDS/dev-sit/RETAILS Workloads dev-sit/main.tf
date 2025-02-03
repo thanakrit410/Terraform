@@ -60,7 +60,7 @@ resource "aws_lambda_function" "rds_lambda" {
   handler       = "lambda_function.lambda_handler"
   filename = "${path.module}/lambda_function.zip"
   source_code_hash = filebase64sha256("${path.module}/lambda_function.zip")
-
+  
   tags = {
 
     Environment = "nonprd"
@@ -68,6 +68,9 @@ resource "aws_lambda_function" "rds_lambda" {
     Project = "Infrastructure"
 
   }
+
+  architectures = ["arm64"]
+
 }
 
 output "lambda_function_arn" {
