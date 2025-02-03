@@ -1,4 +1,4 @@
-resource "aws_route_table" "rtb" {
+resource "aws_route_table" "public_rtb" {
   vpc_id = aws_vpc.eks_vpc.id
 
   route {
@@ -7,11 +7,11 @@ resource "aws_route_table" "rtb" {
   }
 
   tags = {
-    Name = "eks-route"
+    Name = "Public-Route-Table"
   }
 }
 
-resource "aws_route_table_association" "a-1" {
-  subnet_id      = aws_subnet.subnet_az1.id
-  route_table_id = aws_route_table.rtb.id
+resource "aws_route_table_association" "public_rtb_assoc" {
+  subnet_id      = aws_subnet.subnet_az3.id
+  route_table_id = aws_route_table.public_rtb.id
 }

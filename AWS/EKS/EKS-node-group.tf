@@ -1,10 +1,16 @@
 resource "aws_instance" "kubectl-server" {
   ami                         = "ami-063e1495af50e6fd5"
   key_name                    = "PTG-sandbox-keypair"
-  instance_type               = "t2.micro"
-  associate_public_ip_address = true
+  instance_type               = "t3.medium"
+  associate_public_ip_address = false
   subnet_id                   = aws_subnet.subnet_az1.id
-  vpc_security_group_ids      = [aws_security_group.rds_access.id, aws_security_group.load_balancer.id, aws_security_group.eks_worker_nodes.id]
+  vpc_security_group_ids      = [aws_security_group.eks_worker_nodes.id]
+
+
+  root_block_device {
+    volume_size = 100
+    volume_type = "gp2"
+  }
 
   tags = {
     Name = "kubectl"
@@ -18,12 +24,12 @@ resource "aws_eks_node_group" "node-grp" {
   node_role_arn   = aws_iam_role.worker.arn
   subnet_ids      = [aws_subnet.subnet_az1.id, aws_subnet.subnet_az2.id]
   capacity_type   = "ON_DEMAND"
-  disk_size       = "20"
-  instance_types  = ["t2.small"]
+  disk_size       = "100"
+  instance_types  = ["t3.medium"]
 
   remote_access {
     ec2_ssh_key               = "PTG-sandbox-keypair"
-    source_security_group_ids = [aws_security_group.rds_access.id, aws_security_group.load_balancer.id, aws_security_group.eks_worker_nodes.id]
+    source_security_group_ids = [aws_security_group.eks_worker_nodes.id]
   }
 
   labels = tomap({ env = "dev" })

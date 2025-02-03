@@ -30,10 +30,10 @@ resource "aws_subnet" "subnet_az2" {
 }
 
 resource "aws_subnet" "subnet_az3" {
-  vpc_id            = aws_vpc.eks_vpc.id
-  cidr_block        = "10.0.32.0/20"
-  availability_zone = "ap-southeast-1c"
-  #   map_public_ip_on_launch = true
+  vpc_id                  = aws_vpc.eks_vpc.id
+  cidr_block              = "10.0.32.0/20"
+  availability_zone       = "ap-southeast-1c"
+  map_public_ip_on_launch = true
   tags = {
     Name = "Subnet-AZ3"
   }
