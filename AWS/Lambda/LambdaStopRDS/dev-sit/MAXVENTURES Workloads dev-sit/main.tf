@@ -1,7 +1,7 @@
 provider "aws" {
   region = "ap-southeast-1"
   access_key = "AXXXXXXXXXXXXXXXXXXX"
-  secret_key = "NFDDdlPRwnaspbBjQ4W5P0MAIkmS/5OmavNwu6+B"
+  secret_key = "BXXXXXXXXXXXXXXXXXXX"
 }
 
 resource "aws_iam_role" "lambda_rds_role" {
